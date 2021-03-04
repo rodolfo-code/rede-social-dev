@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import NavBar from './components/NavBar';
 import Feed from './components/Feed';
+import { Box, Container } from '@material-ui/core';
 
 const useStayles = makeStyles({
   root: {
@@ -13,9 +14,13 @@ const useStayles = makeStyles({
   },
   main: {
     height: '100vh',
-    display: 'flex',
-    width: '1200px',
-    margin: '0 auto',
+    padding: 24,
+    // display: 'flex',
+    // width: '1280px',
+    // margin: '0 auto',
+  },
+  toolBar: {
+    minHeight: 64,
   },
 });
 
@@ -24,9 +29,14 @@ function Home() {
   return (
     <div className={classes.root}>
       <Header />
+      <div className={classes.toolBar}></div>
       <main className={classes.main}>
-        <NavBar />
-        <Feed />
+        <Container maxWidth="lg">
+          <Box display="flex">
+            <NavBar />
+            <Feed />
+          </Box>
+        </Container>
       </main>
     </div>
   );
