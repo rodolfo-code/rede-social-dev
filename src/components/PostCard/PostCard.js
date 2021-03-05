@@ -1,9 +1,10 @@
 import React from 'react';
 
-function PostCard({ post }) {
+function PostCard(props) {
+  // const { post } = props.children;
   return (
     <div>
-      <h1>Post</h1>
+      <h1>{props.children}</h1>
     </div>
   );
 }
