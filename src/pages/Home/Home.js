@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import NavBar from './components/NavBar';
 import Feed from './components/Feed';
 import { Box, Container } from '@material-ui/core';
-import SignIn from '../Signin/SignIn';
 
 const useStayles = makeStyles({
   root: {
