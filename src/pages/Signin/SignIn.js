@@ -1,39 +1,82 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import {
+  Typography,
+  Grid,
+  Box,
+  Avatar,
+  Button,
+  TextField,
+  Link,
+} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useNavigate } from 'react-router-dom';
+import axios from '../../utils/axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'row',
+    // display: 'flex',
+    // flexDirection: 'row',
     height: '100vh',
   },
-  left: {
-    background: 'blue',
-    flexBasis: '58%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+  image: {
+    backgroundImage: 'url(images/background.jpg)',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'none',
+    padding: theme.spacing(2),
+    textAlign: 'center',
   },
-  right: {
-    background: 'yellow',
-    flexBasis: '42%',
+  avatar: {
+    background: theme.palette.primary.main,
+    marginBottom: theme.spacing(1),
+  },
+  button: {
+    marginTop: theme.spacing(1),
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '64px 32px',
-    alignItems: 'center',
+    margin: theme.spacing(2, 4),
   },
 }));
 
+function Copyright() {
+  return (
+    <Typography variant="body2" align="center">
+      {'Copyright © '}
+      <a color="inherit" href="https://github.com/rodolfo-code">
+        Rodolfo Oliveira
+      </a>{' '}
+      {new Date().getFullYear()}
+    </Typography>
+  );
+}
+
 function SignIn() {
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  function handleSignIn() {
+    // chamada API
+    // const URL = 'https://api.github.com/users/rodolfo-code'
+    // axios.get(URL)
+    //   .then(response => console.log(response.data))
+    //   .catch(error => 'Ocorreu um erro na requisição')
+    axios.post('/api/home/login')
+      .then(response => console.log(response.data))
+  }
+
   return (
-    <div className={classes.root}>
-      <div className={classes.left}>
+    <Grid className={classes.root} container>
+      <Grid
+        item
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        md={7}
+        className={classes.image}
+      >
         <Typography style={{ color: '#fff', fontSize: 27, lineHeight: '45px' }}>
           <strong>
             Simplificando a forma de conectar desenvolvedores de software!
@@ -51,15 +94,62 @@ function SignIn() {
           Compartilhe seu conhecimento com toda nossa rede de desenvolvedores de
           software.
         </Typography>
-      </div>
-      <div className={classes.right}>
-        <form className={classes.form}>
-          <h4>Acesso</h4>
-          <input type="text" />
-          <input type="text" />
-        </form>
-      </div>
-    </div>
+      </Grid>
+      <Grid item md={5}>
+        <Box display="flex" flexDirection="column" alignItems="center" mt={8}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography variant="h5">Acesso</Typography>
+          <form className={classes.form}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="E-mail"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Senha"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              type="submit"
+              onClick={handleSignIn}
+            >
+              Entrar
+            </Button>
+            {/* {errors.submit && (
+              <FormHelperText error>{errors.submit}</FormHelperText>
+            )} */}
+            <Grid container>
+              <Grid item>
+                <Link>Esqueceu sua senha?</Link>
+              </Grid>
+              <Grid item>
+                <Link>Não tem uma conta? Registre-se</Link>
+              </Grid>
+            </Grid>
+          </form>
+          <Copyright />
+        </Box>
+      </Grid>
+    </Grid>
   );
 }
 
